@@ -6,7 +6,7 @@ class App extends Component {
 
   constructor() {
     super();
-    console.log("I run 1!");
+    console.log("I run 1!. The Constructor!");
     this.state= {
       name: {
         firstname: 'Christos',
@@ -25,17 +25,18 @@ class App extends Component {
         id  : '3',
         name: 'Jamer Kirk'
       },
-      monsters:[],
+      monsters: [],
       monstersBoss: [
         {id: '4', name: 'Christos Mazarakis'},
         {id: '5', name: 'James Kirk'},
         {id: '6', name: 'Master_User'}
-      ]
+      ],
+      searchField: ''
     }
   }
 
   componentDidMount () {
-    console.log("I run 3!");
+    console.log("I run 3!. The componentDidMount");
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => {
         console.log("Response: " + response);
@@ -50,9 +51,30 @@ class App extends Component {
   }
 
   render () {
-    console.log("I run 2! Ich muss leider öffters ausgeführt werden uns zeichnen");
+    console.log("I run 2!. The render Ich muss leider öffters ausgeführt werden uns zeichnen");
+    const filterMonsters = this.state.monsters.filter( (monster) => {
+      return monster.name.toLocaleLowerCase().includes(this.state.searchField);
+    });
+
     return (
     <div className='App'>
+      <input className='search-Box'
+             type='search'
+             placeholder='search monsters'
+             onChange={ (event) => {
+                console.log({StartArray: this.state.monsters});
+                console.log("onChange: " + event.target.value);
+                const searchField = event.target.value.toLocaleLowerCase();
+                console.log("search to: " + searchField);
+
+                this.setState(() => {
+                  return { searchField };
+                },
+                () => {
+                  console.log({EndArray: this.state.monsters})
+                });
+             }
+            } />
       <div key={this.state.monster1.id}>
         <h1>{this.state.monster1.name}</h1>
       </div>
@@ -67,15 +89,19 @@ class App extends Component {
         this.state.monstersBoss.map((monster) => {
           return <div key={monster.id}>
                     <u>{monster.name}</u>
-                </div>
+                 </div>
         })
       }
       <hr/>
+      <div key='Filter Monster'>
+        <h1>Filter Monster</h1>
+        <hr/>
+      </div>
       {
-        this.state.monsters.map((monster) => {
+        filterMonsters.map((monster) => {
           return <div key={monster.id}>
                     <u>{monster.name}</u>
-                </div>
+                 </div>
         })
       }
     </div>);
