@@ -6,44 +6,82 @@ class App extends Component {
 
   constructor() {
     super();
+    console.log("I run 1!");
     this.state= {
+      name: {
+        firstname: 'Christos',
+        lastname : 'Mazarakis',
+      },
+      company: 'Avision Gmbh',
       monster1: {
+        id  : '1',
         name: 'Christos Mazarakis'
       },
       monster2: {
+        id  : '2',
         name: 'Master_User'
       },
       monster3: {
+        id  : '3',
         name: 'Jamer Kirk'
       },
-      name: {
-        firstname: 'Christos',
-        lastname:  'Mazarakis',
-      },
-      company: 'Avision Gmbh',
-      monsters: [
-        {name: 'Christos Mazarakis'},
-        {name: 'James Kirk'},
-        {name: 'Master_User'}
+      monsters:[],
+      monstersBoss: [
+        {id: '4', name: 'Christos Mazarakis'},
+        {id: '5', name: 'James Kirk'},
+        {id: '6', name: 'Master_User'}
       ]
     }
   }
 
-  render() {
+  componentDidMount () {
+    console.log("I run 3!");
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => {
+        console.log("Response: " + response);
+        return response.json();
+      })
+      .then(users => this.setState(() => {
+        return {monsters: users}
+      },
+      () => {
+        console.log("Monsters: " + this.state);
+      }));
+  }
+
+  render () {
+    console.log("I run 2! Ich muss leider öffters ausgeführt werden uns zeichnen");
     return (
     <div className='App'>
-      <h1>{this.state.monster1.name}</h1>
-      <h1>{this.state.monster2.name}</h1>
-      <h1>{this.state.monster3.name}</h1>
+      <div key={this.state.monster1.id}>
+        <h1>{this.state.monster1.name}</h1>
+      </div>
+      <div key={this.state.monster2.id}>
+        <h1>{this.state.monster2.name}</h1>
+      </div>
+      <div key={this.state.monster3.id}>
+        <h1>{this.state.monster3.name}</h1>
+      </div>
+      <hr/>
+      {
+        this.state.monstersBoss.map((monster) => {
+          return <div key={monster.id}>
+                    <u>{monster.name}</u>
+                </div>
+        })
+      }
+      <hr/>
       {
         this.state.monsters.map((monster) => {
-          return <h1>{monster.name}</h1>
+          return <div key={monster.id}>
+                    <u>{monster.name}</u>
+                </div>
         })
       }
     </div>);
   }
 
-  username () {
+  usernameApp () {
     return (
       <div className="App">
         <header className="App-header">
