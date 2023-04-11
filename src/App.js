@@ -10,8 +10,9 @@ import './App.old.css';
 
 const App = () => { 
   console.log('render');
-  const [searchField, setSearchField]        = useState(''); //[value, setValue]
-  const [monsters,    setMonsters]           = useState([]);
+  const [searchField,      setSearchField]   = useState(''); //[value, setValue]
+  const [title,            setTitle]         = useState('');
+  const [monsters,         setMonsters]      = useState([]);
   const [filteredMonsters, setFilterMonster] = useState([]);
   console.log('searchField: ' + JSON.stringify(searchField));
   console.log('monsters: '    + JSON.stringify(monsters));
@@ -36,20 +37,34 @@ const App = () => {
   }, [monsters, searchField]);
 
   const onSearchChange = (event) => {
-    console.log('StartArray: ' + JSON.stringify(monsters));
-    console.log('onChange: '   + event.target.value);
+    console.log('onSearchChange StartArray: ' + JSON.stringify(monsters));
+    console.log('onSearchChange onChange: '   + event.target.value);
     const searchFieldString = event.target.value.toLocaleLowerCase();
-    console.log('search to: '  + searchFieldString);
+    console.log('onSearchChange search to: '  + searchFieldString);
     setSearchField(searchFieldString);
-    console.log('search to: '  + searchFieldString);
+    console.log('onSearchChange search to: '  + searchFieldString);
+  }
+
+  const onTitleChange = (event) => {
+    console.log('onTitleChange StartArray: ' + JSON.stringify(monsters));
+    console.log('onTitleChange onChange: '   + event.target.value);
+    const searchFieldString = event.target.value.toLocaleLowerCase();
+    console.log('onTitleChange search to: '  + searchFieldString);
+    setTitle(searchFieldString);
+    console.log('onTitleChange search to: '  + searchFieldString);
   }
 
    return (
     <div className='App'>
-      <h1 className='app-title'>Monster Rolodex</h1>
+      <h1 className='app-title'>{title}</h1>
       <SearchBoxEffect className       = 'monster-search-box'
                        onChangeHandler = {onSearchChange}
                        placeholder     = 'search monsters' />
+      <br/>
+      <SearchBoxEffect className       = 'title-search-box'
+                       onChangeHandler = {onTitleChange}
+                       placeholder     = 'set Title on Search Box' />
+
       <CardListEffect monsters={filteredMonsters}/>
     </div>
   );
