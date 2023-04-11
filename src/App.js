@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { useState, useEffect }  from 'react';
 
-import logo      from './logo.svg';
-import CardList  from './components/card-list/card-list.component';
-import SearchBox from './components/search-box/search-box.component'
+import logo            from './logo.svg';
+import CardListEffect  from './components/card-list/card-list.component';
+import SearchBoxEffect from './components/search-box/search-box.useEffect.component'
 
 import './App.css'
 import './App.old.css';
@@ -47,10 +47,10 @@ const App = () => {
    return (
     <div className='App'>
       <h1 className='app-title'>Monster Rolodex</h1>
-      <SearchBox className       = 'monster-search-box'
-                 onChangeHandler = {onSearchChange}
-                 placeholder     = 'search monsters' />
-      <CardList monsters={filteredMonsters}/>
+      <SearchBoxEffect className       = 'monster-search-box'
+                       onChangeHandler = {onSearchChange}
+                       placeholder     = 'search monsters' />
+      <CardListEffect monsters={filteredMonsters}/>
     </div>
   );
 };

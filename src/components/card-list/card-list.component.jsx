@@ -1,5 +1,5 @@
 import { Component } from "react";
-import Card from "../card/card.component"
+import CardEffect from "../card/card.useEffect.component"
 import './card-list.style.css'
 
 class CardList extends Component {
@@ -13,7 +13,7 @@ class CardList extends Component {
                       key='Filter Monster'>
                     {
                         monsters.map((monster) => {
-                            return <Card monster={monster}></Card>
+                            return <CardEffect monster={monster}></CardEffect>
                         })
                     }
                 </div>

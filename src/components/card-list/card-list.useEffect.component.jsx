@@ -1,0 +1,18 @@
+import CardEffect from "../card/card.useEffect.component"
+import './card-list.style.css'
+
+const CardListEffect = ({monsters}) => {
+    <div className='card-list-container'>
+        <div className='card-list'
+                key='Filter Monster'>
+            {
+                monsters.map((monster) => {
+                    return <CardEffect monster={monster}></CardEffect>
+                })
+            }
+        </div>
+    </div>
+}
+
+
+export default CardListEffect;
