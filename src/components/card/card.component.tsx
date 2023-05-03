@@ -7,6 +7,7 @@ type CardProps = {
 };
 
 const CardEffect = ({monster: {id, name, email}}: CardProps) => {
+//   console.log('Render from Card with Monsters: ' + id + name + email);
 
   return (
     <div key={id} className='card-container'>

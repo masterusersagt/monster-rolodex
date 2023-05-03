@@ -58,8 +58,7 @@ type SearchBoxProps = {
 }
 
 const SearchBoxEffect = ({className, placeholder, onChangeHandler}: SearchBoxProps) => {
-
-    console.log('Render from SearchBox')
+//    console.log('Render from SearchBox')
     return (
         <input className  = {`search-box ${className}`}
                 type       = 'search'

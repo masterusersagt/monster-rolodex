@@ -29,7 +29,7 @@ const App = () => {
     const fetchUsers = async () => {
       const users = await getData<Monster[]>('https://jsonplaceholder.typicode.com/users');
       setMonsters(users);
-      console.log('Response from Fetch: ', users);
+      // console.log('Response from Fetch: ', users);
     }
     fetchUsers();
 
@@ -48,30 +48,30 @@ const App = () => {
       return monster.name.toLocaleLowerCase().includes(searchField);
     })
     setFilterMonster(newfilterMonsters);
-    console.log('effectIsFiereing');
+    // console.log('effectIsFiereing');
   }, [monsters, searchField]);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement> ): void => {
-    console.log('onSearchChange StartArray: ' + JSON.stringify(monsters));
-    console.log('onSearchChange onChange: '   + event.target.value);
+    // console.log('onSearchChange StartArray: ' + JSON.stringify(monsters));
+    // console.log('onSearchChange onChange: '   + event.target.value);
     const searchFieldString = event.target.value.toLocaleLowerCase();
-    console.log('onSearchChange search to: '  + searchFieldString);
+    // console.log('onSearchChange search to: '  + searchFieldString);
     setSearchField(searchFieldString);
-    console.log('onSearchChange search to: '  + searchFieldString);
+    // console.log('onSearchChange search to: '  + searchFieldString);
   }
 
-  const onTitleChange = (event: ChangeEvent<HTMLInputElement> ):void  => {
-    console.log('onTitleChange StartArray: ' + JSON.stringify(monsters));
-    console.log('onTitleChange onChange: '   + event.target.value);
-    const searchFieldString = event.target.value.toLocaleLowerCase();
-    console.log('onTitleChange search to: '  + searchFieldString);
-    setTitle(searchFieldString);
-    console.log('onTitleChange search to: '  + searchFieldString);
-  }
+  // const onTitleChange = (event: ChangeEvent<HTMLInputElement> ):void  => {
+  //   console.log('onTitleChange StartArray: ' + JSON.stringify(monsters));
+  //   console.log('onTitleChange onChange: '   + event.target.value);
+  //   const searchFieldString = event.target.value.toLocaleLowerCase();
+  //   console.log('onTitleChange search to: '  + searchFieldString);
+  //   setTitle(searchFieldString);
+  //   console.log('onTitleChange search to: '  + searchFieldString);
+  // }
 
    return (
     <div className='App'>
-      <h1 className='app-title'>{title}</h1>
+      {/* <h1 className='app-title'>{title}</h1> */}
       <h1 className='app-title'>Monsters Rolodex</h1>
       <SearchBoxEffect className       = 'monster-search-box'
                        onChangeHandler = {onSearchChange}
