@@ -1,31 +1,46 @@
 import { Component } from 'react';
-import { useState, useEffect }  from 'react';
+import { useState, useEffect, ChangeEvent }  from 'react';
 
-import logo            from './logo.svg';
+//import logo            from './logo.svg';
 import CardListEffect  from './components/card-list/card-list.component';
-import SearchBoxEffect from './components/search-box/search-box.useEffect.component'
+import SearchBoxEffect from './components/search-box/search-box'
+
+import { getData } from './utils/data.utils';
 
 import './App.css'
 import './App.old.css';
+
+export type Monster = {
+  id: string;
+  name: string;
+  email: string;
+}
 
 const App = () => { 
   console.log('render');
   const [searchField,      setSearchField]   = useState(''); //[value, setValue]
   const [title,            setTitle]         = useState('');
-  const [monsters,         setMonsters]      = useState([]);
-  const [filteredMonsters, setFilterMonster] = useState([]);
+  const [monsters,         setMonsters]      = useState<Monster[]>([]);
+  const [filteredMonsters, setFilterMonster] = useState(monsters);
   console.log('searchField: ' + JSON.stringify(searchField));
   console.log('monsters: '    + JSON.stringify(monsters));
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        console.log('Response from Fetch: ' + JSON.stringify(response));
-        return response.json();
-      })
-      .then((users) => {
-        setMonsters(users);
-      })
+    const fetchUsers = async () => {
+      const users = await getData<Monster[]>('https://jsonplaceholder.typicode.com/users');
+      setMonsters(users);
+      console.log('Response from Fetch: ', users);
+    }
+    fetchUsers();
+
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    //   .then((response) => {
+    //     console.log('Response from Fetch: ' + JSON.stringify(response));
+    //     return response.json();
+    //   })
+    //   .then((users) => {
+    //     setMonsters(users);
+    //   })
   }, []);
 
   useEffect(() => {
@@ -36,7 +51,7 @@ const App = () => {
     console.log('effectIsFiereing');
   }, [monsters, searchField]);
 
-  const onSearchChange = (event) => {
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement> ): void => {
     console.log('onSearchChange StartArray: ' + JSON.stringify(monsters));
     console.log('onSearchChange onChange: '   + event.target.value);
     const searchFieldString = event.target.value.toLocaleLowerCase();
@@ -45,7 +60,7 @@ const App = () => {
     console.log('onSearchChange search to: '  + searchFieldString);
   }
 
-  const onTitleChange = (event) => {
+  const onTitleChange = (event: ChangeEvent<HTMLInputElement> ):void  => {
     console.log('onTitleChange StartArray: ' + JSON.stringify(monsters));
     console.log('onTitleChange onChange: '   + event.target.value);
     const searchFieldString = event.target.value.toLocaleLowerCase();
@@ -57,19 +72,26 @@ const App = () => {
    return (
     <div className='App'>
       <h1 className='app-title'>{title}</h1>
+      <h1 className='app-title'>Monsters Rolodex</h1>
       <SearchBoxEffect className       = 'monster-search-box'
                        onChangeHandler = {onSearchChange}
                        placeholder     = 'search monsters' />
       <br/>
-      <SearchBoxEffect className       = 'title-search-box'
+      {/* <SearchBoxEffect className       = 'title-search-box'
                        onChangeHandler = {onTitleChange}
-                       placeholder     = 'set Title on Search Box' />
+                       placeholder     = 'set Title on Search Box' /> */}
 
       <CardListEffect monsters={filteredMonsters}/>
     </div>
   );
 };
 
+// ##################################
+// ##
+// ## OLD
+// ##
+// ##################################
+//
 // class App extends Component {
 
 //   constructor() {
